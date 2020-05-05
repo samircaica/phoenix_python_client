@@ -1,6 +1,7 @@
 import phoenixdb
 import phoenixdb.cursor
 import sys
+import random
 
 
 if __name__ == '__main__':
@@ -11,9 +12,32 @@ if __name__ == '__main__':
     conn = phoenixdb.connect(database_url, autocommit=True, auth='SPNEGO')
     cursor = conn.cursor()
 
-    #cursor.execute("CREATE TABLE users (id INTEGER PRIMARY KEY, username VARCHAR)")
-    #cursor.execute("UPSERT INTO users VALUES (?, ?)", (1, 'admin'))
-    #cursor.execute("UPSERT INTO users VALUES (?, ?)", (2, 'user'))
-    cursor.execute("SELECT * FROM TEST8")
+    try:
+        print("DROP TABLE IF EXISTS EMP4")
+        cursor.execute("DROP TABLE IF EXISTS EMP4")
+    except Exception as e:
+        print("Problem drop table", e)
+        raise
+
+    try:
+        cursor.execute("CREATE TABLE EMP4 (id INTEGER PRIMARY KEY, username VARCHAR)")
+    except Exception as e:
+        print("Problem creating table", e)
+        raise
+
+    depts = ["SALES", "SUPPORT", "DEVELOPMENT", "MANAGEMENT"]
+    try:
+        for x in range(0, 10):
+            dept = random.choice(depts)
+            print("INSERTING VALUES ID DEPT ", (x+1, dept))
+            cursor.execute("UPSERT INTO EMP4 VALUES (?, ?)", (x+1, dept))
+    except Exception as e:
+        print("Problem inserting into table", e)
+        raise
+    
+    cursor.execute("SELECT * FROM EMP4")
     print("RESULTS")
     print(cursor.fetchall())
+
+
+
