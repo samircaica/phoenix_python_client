@@ -7,7 +7,7 @@ import random
 if __name__ == '__main__':
     pqs_host = sys.argv[1]
     pqs_port = sys.argv[2]
-    database_url = (str(pqs_host)':' + str(pqs_port) + '/')
+    database_url = (str(pqs_host) + ':' + str(pqs_port) + '/')
     
 
     print("CREATING PQS CONNECTION")
