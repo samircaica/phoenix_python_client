@@ -77,4 +77,5 @@ unset https_proxy
 echo "Working Directory is ${PWD}"
 
 echo "RUN PYTHON TEST on port $PQS_PORT"
+python -V
 python $PYTHON_SCRIPT $PQS_HOST $PQS_PORT
