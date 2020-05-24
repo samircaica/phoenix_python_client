@@ -5,11 +5,14 @@ import random
 
 
 if __name__ == '__main__':
-    pqs_port = sys.argv[1]
-    database_url = ('http://c334-node5:' + str(pqs_port) + '/')
+    pqs_host = sys.argv[1]
+    pqs_port = sys.argv[2]
+    database_url = (str(pqs_host)':' + str(pqs_port) + '/')
+    
 
     print("CREATING PQS CONNECTION")
-    conn = phoenixdb.connect(database_url, autocommit=True, auth='SPNEGO')
+    #conn = phoenixdb.connect(database_url, autocommit=True, auth='SPNEGO')
+    conn = phoenixdb.connect(database_url, autocommit=True, auth='SPNEGO', principal="hbase-c334@HWX.COM",keytab="/Users/scaica/hbase_conf_Samir/c334-node5/hbase.headless.keytab")
     cursor = conn.cursor()
 
     try:

@@ -42,8 +42,9 @@ LOCAL_PY=$1
 PRINC=$2
 KEYTAB_LOC=$3
 KRB5_CFG_FILE=$4
-PQS_PORT=$5
-PYTHON_SCRIPT=$6
+PQS_HOST=$5
+PQS_PORT=$6
+PYTHON_SCRIPT=$7
 
 PY_ENV_PATH=$( mktemp -d )
 
@@ -76,4 +77,4 @@ unset https_proxy
 echo "Working Directory is ${PWD}"
 
 echo "RUN PYTHON TEST on port $PQS_PORT"
-python $PYTHON_SCRIPT $PQS_PORT
+python $PYTHON_SCRIPT $PQS_HOST $PQS_PORT
