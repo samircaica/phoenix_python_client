@@ -11,8 +11,8 @@ if __name__ == '__main__':
     
 
     print("CREATING PQS CONNECTION")
-    #conn = phoenixdb.connect(database_url, autocommit=True, auth='SPNEGO')
-    conn = phoenixdb.connect(database_url, autocommit=True, auth='SPNEGO', principal="hbase-c334@HWX.COM",keytab="/Users/scaica/hbase_conf_Samir/c334-node5/hbase.headless.keytab")
+    conn = phoenixdb.connect(database_url, autocommit=True, auth='SPNEGO', authentication = "DIGEST")
+    #conn = phoenixdb.connect(database_url, autocommit=True, auth='SPNEGO', principal="hbase-c334@HWX.COM",keytab="/Users/scaica/hbase_conf_Samir/c334-node5/hbase.headless.keytab")
     cursor = conn.cursor()
 
     try:
