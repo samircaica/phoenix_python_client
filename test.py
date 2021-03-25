@@ -3,18 +3,28 @@ import phoenixdb.cursor
 import sys
 import random
 import logging
+import gssapi
+import requests
+from requests_gssapi import HTTPSPNEGOAuth
 
 
 if __name__ == '__main__':
     pqs_host = sys.argv[1]
     pqs_port = sys.argv[2]
     database_url = (str(pqs_host) + ':' + str(pqs_port) + '/')
-    logging.basicConfig(level=logging.DEBUG)
     
+    #loggin level
+    #logging.basicConfig(level=logging.DEBUG)
+    logging.basicConfig(level=logging.INFO)
+
 
     print("CREATING PQS CONNECTION")
-    conn = phoenixdb.connect(database_url, autocommit=True, auth='SPNEGO', authentication = "DIGEST")
     
+    spnego = gssapi.OID.from_int_seq("1.3.6.1.5.5.2")
+    authobj = HTTPSPNEGOAuth(opportunistic_auth=True,mech=spnego)
+    conn = phoenixdb.connect(database_url, autocommit=True, auth=authobj)
+    
+
     cursor = conn.cursor()
 
     try:
@@ -39,7 +49,7 @@ if __name__ == '__main__':
     except Exception as e:
         print("Problem inserting into table", e)
         raise
-    
+
     cursor.execute("SELECT * FROM EMP4")
     print("RESULTS")
     print(cursor.fetchall())
