@@ -3,6 +3,8 @@
 ## Requirement:
 ```
 
+pip install virtualenv
+
 git clone https://github.com/apache/phoenix-queryserver.git
 
 git clone https://github.com/samircaica/phoenix_python_client.git
