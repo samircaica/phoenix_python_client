@@ -60,8 +60,11 @@ popd
 
 set -u
 echo "INSTALLING COMPONENTS"
-pip install -e file://${LOCAL_PY}/requests-kerberos
-pip install -e file://${LOCAL_PY}/python/phoenixdb
+pip list setuptools
+pip list kerberos
+#pip install -e file://${LOCAL_PY}/requests-kerberos
+#pip install -e file://${LOCAL_PY}/python/phoenixdb
+pip install -e file://${LOCAL_PY}/python-phoenixdb
 
 export KRB5_CONFIG=$KRB5_CFG_FILE
 cat $KRB5_CONFIG
